@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from play2learn.views import home_view, register
+from play2learn.views import home_view, register, login_view, my_account
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('register/', register, name='register'),
+    path('login/', login_view, name='login'),
+    path('account/', my_account, name='account'),
     path('admin/', admin.site.urls),
 ]

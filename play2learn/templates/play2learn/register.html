@@ -4,20 +4,58 @@
 
 {% block content %}
 	<h1>Register</h1>
-	<form method="POST">
+	<div id="error-messages"></div>
+	<form id="register-form" method="POST" novalidate>
 		{% csrf_token %}
 		<label for="username">Username:</label>
-		<input type="text" id="username" name="username" required><br>
+		<input type="text" id="username" name="username"><br>
 
 		<label for="email">Email:</label>
-		<input type="email" id="email" name="email" required><br>
+		<input type="email" id="email" name="email"><br>
 
 		<label for="password1">Password:</label>
-		<input type="password" id="password1" name="password1" required><br>
+		<input type="password" id="password1" name="password1"><br>
 
 		<label for="password2">Confirm Password:</label>
-		<input type="password" id="password2" name="password2" required><br>
+		<input type="password" id="password2" name="password2"><br>
 
 		<input type="submit" value="Register">
 	</form>
+
+	<script>
+		(function() {
+			const form = document.getElementById('register-form');
+			const errorMessages = document.getElementById('error-messages');
+			form.addEventListener('submit', function(event) {
+				event.preventDefault();
+				errorMessages.innerHTML = '';
+
+				const usernameField = form.querySelector('#username');
+				const emailField = form.querySelector('#email');
+				const password1Field = form.querySelector('#password1');
+				const password2Field = form.querySelector('#password2');
+
+				if (usernameField.value.trim() === '') {
+					errorMessages.innerHTML += '<p>Please enter a username</p>';
+				}
+
+				const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+				if (!emailPattern.test(emailField.value)) {
+					errorMessages.innerHTML += '<p>Please enter a valid email address</p>';
+				}
+
+				if (password1Field.value.length < 8) {
+					errorMessages.innerHTML += '<p>Password must be at least 8 characters long</p>';
+				}
+
+				if (password1Field.value !== password2Field.value) {
+					errorMessages.innerHTML += '<p>Passwords do not match</p>';
+				}
+
+				if (errorMessages.innerHTML === '') {
+					form.submit();
+				}
+			});
+		})();
+	</script>
 {% endblock %}
