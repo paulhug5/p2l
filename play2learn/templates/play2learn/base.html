@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Games</a></li>
+				<li><a href="#">My Account</a></li>
+				<li><a href="#">Contact Us</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<main>
+		{% block content %}
+		{% endblock %}
+	</main>
+
+	<footer>
+		<p>&copy; 2022 Play2Learn</p>
+	</footer>
+</body>
+</html>
